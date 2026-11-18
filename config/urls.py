@@ -16,14 +16,31 @@ Including another URLconf
 """
 
 
+
+
 from django.contrib import admin
 from django.urls import path, include
 
+from . import views
+
+
 urlpatterns = [
+    # Página principal
+    path("", views.inicio, name="inicio"),
+
+    # Administración
     path("admin/", admin.site.urls),
+
+    # Interfaz web de alquileres
+    path(
+        "alquileres/",
+        include("alquileres.urls")
+    ),
+
+    # API REST
     path("api/", include("flota.urls")),
     path("api/", include("clientes.urls")),
     path("api/", include("accesorios.urls")),
-    path("api/", include("alquileres.urls")),
+    path("api/", include("alquileres.api_urls")),
 ]
 

@@ -1,0 +1,83 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Inicio | AutoRent{% endblock %}
+
+{% block content %}
+
+<div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+    <div class="container-fluid py-4">
+
+        <h1 class="display-5 fw-bold">
+            Bienvenido a AutoRent
+        </h1>
+
+        <p class="col-md-8 fs-5">
+            Sistema de gestión de alquiler de vehículos.
+            Administra clientes, vehículos, accesorios y alquileres
+            desde un solo lugar.
+        </p>
+
+        <a href="/alquileres/" class="btn btn-dark btn-lg">
+            <i class="bi bi-calendar-check"></i>
+            Gestionar alquileres
+        </a>
+
+    </div>
+</div>
+
+<h2 class="mb-4">Panel principal</h2>
+
+<div class="row g-4">
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <i class="bi bi-car-front-fill fs-1 text-primary"></i>
+                <h5 class="card-title mt-3">Vehículos</h5>
+                <p class="card-text">
+                    Consulta y administra la flota de vehículos.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <i class="bi bi-people-fill fs-1 text-success"></i>
+                <h5 class="card-title mt-3">Clientes</h5>
+                <p class="card-text">
+                    Gestiona la información de los clientes.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <i class="bi bi-calendar-check-fill fs-1 text-warning"></i>
+                <h5 class="card-title mt-3">Alquileres</h5>
+                <p class="card-text">
+                    Registra y administra los alquileres.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <i class="bi bi-box-seam-fill fs-1 text-danger"></i>
+                <h5 class="card-title mt-3">Accesorios</h5>
+                <p class="card-text">
+                    Consulta los accesorios disponibles.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

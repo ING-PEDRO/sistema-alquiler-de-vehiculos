@@ -1,17 +1,35 @@
 
-from rest_framework.routers import DefaultRouter
-from .views import AlquilerViewSet, AlquilerAccesorioViewSet
 
-router = DefaultRouter()
-router.register(
-    "alquileres",
-    AlquilerViewSet,
-    basename="alquiler"
-)
-router.register(
-    "alquiler-accesorios",
-    AlquilerAccesorioViewSet,
-    basename="alquiler-accesorio"
-)
+from django.urls import path
 
-urlpatterns = router.urls
+from . import views
+
+
+app_name = "alquileres"
+
+urlpatterns = [
+    path(
+        "",
+        views.lista_alquileres,
+        name="lista"
+    ),
+
+    path(
+        "crear/",
+        views.crear_alquiler,
+        name="crear"
+    ),
+
+    path(
+        "editar/<int:pk>/",
+        views.editar_alquiler,
+        name="editar"
+    ),
+
+    path(
+        "eliminar/<int:pk>/",
+        views.eliminar_alquiler,
+        name="eliminar"
+    ),
+]
+

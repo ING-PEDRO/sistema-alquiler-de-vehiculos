@@ -1,0 +1,110 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Alquileres | AutoRent{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold">Gestión de alquileres</h2>
+        <p class="text-muted">Consulta y administra los alquileres registrados.</p>
+    </div>
+
+    <a href="{% url 'alquileres:crear' %}" class="btn btn-dark">
+        <i class="bi bi-plus-circle"></i>
+        Nuevo alquiler
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Vehículo</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha final</th>
+                        <th>Estado</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for alquiler in alquileres %}
+
+                    <tr>
+                        <td>{{ alquiler.id }}</td>
+
+                        <td>{{ alquiler.cliente }}</td>
+
+                        <td>{{ alquiler.vehiculo }}</td>
+
+                        <td>{{ alquiler.fecha_inicio|date:"d/m/Y" }}</td>
+
+                        <td>{{ alquiler.fecha_fin|date:"d/m/Y" }}</td>
+
+                        <td>
+                            {% if alquiler.estado == "RES" %}
+                                <span class="badge bg-warning text-dark">Reservado</span>
+                            {% elif alquiler.estado == "ACT" %}
+                                <span class="badge bg-success">Activo</span>
+                            {% elif alquiler.estado == "FIN" %}
+                                <span class="badge bg-secondary">Finalizado</span>
+                            {% else %}
+                                <span class="badge bg-danger">Cancelado</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            ${{ alquiler.total|floatformat:2 }}
+                        </td>
+
+                        <td>
+                            <div class="d-flex gap-2">
+
+                                <a href="{% url 'alquileres:editar' alquiler.id %}"
+                                   class="btn btn-sm btn-outline-primary"
+                                   title="Editar">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+
+                                <a href="{% url 'alquileres:eliminar' alquiler.id %}"
+                                   class="btn btn-sm btn-outline-danger"
+                                   title="Eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="8" class="text-center py-4">
+                            <i class="bi bi-inbox fs-1 text-muted"></i>
+                            <p class="text-muted mt-2">
+                                Todavía no hay alquileres registrados.
+                            </p>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
