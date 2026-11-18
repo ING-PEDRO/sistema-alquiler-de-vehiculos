@@ -1,0 +1,124 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ titulo }} | AutoRent{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h2 class="fw-bold" style="color:#123B5D;">{{ titulo }}</h2>
+    <p class="text-secondary">
+        Completa la información del vehículo.
+    </p>
+</div>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            Revisa los campos. Hay información incorrecta o incompleta.
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0 fw-bold">
+                <i class="bi bi-car-front me-2"></i>
+                Información del vehículo
+            </h5>
+        </div>
+
+        <div class="card-body">
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Categoría</label>
+                    {{ form.categoria }}
+                    {{ form.categoria.errors }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Placa</label>
+                    {{ form.placa }}
+                    {{ form.placa.errors }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Marca</label>
+                    {{ form.marca }}
+                    {{ form.marca.errors }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Modelo</label>
+                    {{ form.modelo }}
+                    {{ form.modelo.errors }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Año</label>
+                    {{ form.anio }}
+                    {{ form.anio.errors }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Estado</label>
+                    {{ form.estado }}
+                    {{ form.estado.errors }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0 fw-bold">
+                <i class="bi bi-image me-2"></i>
+                Fotografía del vehículo
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            {% if vehiculo and vehiculo.imagen %}
+                <div class="mb-3">
+                    <p class="fw-semibold">Fotografía actual:</p>
+                    <img
+                        src="{{ vehiculo.imagen.url }}"
+                        alt="Fotografía del vehículo"
+                        style="width:240px;height:150px;object-fit:cover;border-radius:12px;"
+                    >
+                </div>
+            {% endif %}
+
+            <label class="form-label fw-semibold">
+                Seleccionar fotografía
+            </label>
+
+            {{ form.imagen }}
+            {{ form.imagen.errors }}
+
+            <small class="text-secondary d-block mt-2">
+                Puedes seleccionar una imagen desde tu computador.
+            </small>
+
+        </div>
+    </div>
+
+    <div class="d-flex gap-2 justify-content-end">
+        <a href="{% url 'flota:lista_vehiculos' %}"
+           class="btn btn-secondary">
+            <i class="bi bi-x-circle"></i> Cancelar
+        </a>
+
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle"></i> Guardar vehículo
+        </button>
+    </div>
+
+</form>
+
+{% endblock %}

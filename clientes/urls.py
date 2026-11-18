@@ -1,7 +1,17 @@
-from rest_framework.routers import DefaultRouter
-from .views import ClienteViewSet
 
-router = DefaultRouter()
-router.register("clientes", ClienteViewSet, basename="cliente")
+from django.urls import path
+from . import views
 
-urlpatterns = router.urls
+app_name = "clientes"
+
+urlpatterns = [
+    path("", views.lista_clientes, name="lista_clientes"),
+
+    path("crear/", views.crear_cliente, name="crear_cliente"),
+
+    path("editar/<int:pk>/", views.editar_cliente, name="editar_cliente"),
+
+    path("eliminar/<int:pk>/", views.eliminar_cliente, name="eliminar_cliente"),
+
+    path("mi-perfil/", views.mi_perfil, name="mi_perfil"),
+]

@@ -17,6 +17,8 @@ Including another URLconf
 
 
 
+from django.conf import settings
+from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path, include
@@ -30,6 +32,8 @@ urlpatterns = [
 
     # Administración
     path("admin/", admin.site.urls),
+    # Inicio y cierre de sesión
+    path("cuentas/", include("django.contrib.auth.urls")),
 
     # Interfaz web de alquileres
     path(
@@ -37,10 +41,32 @@ urlpatterns = [
         include("alquileres.urls")
     ),
 
-    # API REST
-    path("api/", include("flota.urls")),
-    path("api/", include("clientes.urls")),
-    path("api/", include("accesorios.urls")),
+    # Interfaz web de vehículos
+    path(
+        "",
+        include(("flota.urls", "flota"), namespace="flota")
+    ),
+
+    # API REST de vehículos
+    path(
+        "api/",
+        include(("flota.urls", "flota"), namespace="flota_api")
+    ),
+
+    # API REST de los demás módulos
+    # Interfaz web de clientes
+    path("clientes/", include("clientes.urls")),
+
+    # API REST de clientes
+    path("api/", include("clientes.api_urls")),
+    path("accesorios/", include("accesorios.urls")),
+    path("api/", include("accesorios.api_urls")),
     path("api/", include("alquileres.api_urls")),
 ]
 
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )

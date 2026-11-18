@@ -1,7 +1,31 @@
-from rest_framework.routers import DefaultRouter
-from .views import AccesorioViewSet
 
-router = DefaultRouter()
-router.register('accesorios', AccesorioViewSet)
+from django.urls import path
+from . import views
 
-urlpatterns = router.urls
+app_name = "accesorios"
+
+urlpatterns = [
+    path(
+        "",
+        views.lista_accesorios,
+        name="lista_accesorios"
+    ),
+
+    path(
+        "crear/",
+        views.crear_accesorio,
+        name="crear_accesorio"
+    ),
+
+    path(
+        "editar/<int:pk>/",
+        views.editar_accesorio,
+        name="editar_accesorio"
+    ),
+
+    path(
+        "eliminar/<int:pk>/",
+        views.eliminar_accesorio,
+        name="eliminar_accesorio"
+    ),
+]

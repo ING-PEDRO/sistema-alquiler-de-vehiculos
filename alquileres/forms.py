@@ -20,20 +20,16 @@ class AlquilerForm(forms.ModelForm):
 
         widgets = {
             "fecha_inicio": forms.DateInput(
-                attrs={"type": "date", "class": "form-control"}
+                format="%Y-%m-%d",
+                 attrs={"type": "date", "class": "form-control"}
             ),
             "fecha_fin": forms.DateInput(
+                format="%Y-%m-%d",
                 attrs={"type": "date", "class": "form-control"}
             ),
-            "cliente": forms.Select(
-                attrs={"class": "form-select"}
-            ),
-            "vehiculo": forms.Select(
-                attrs={"class": "form-select"}
-            ),
-            "estado": forms.Select(
-                attrs={"class": "form-select"}
-            ),
+            "cliente": forms.Select(attrs={"class": "form-select"}),
+            "vehiculo": forms.Select(attrs={"class": "form-select"}),
+            "estado": forms.Select(attrs={"class": "form-select"}),
         }
 
     def clean(self):

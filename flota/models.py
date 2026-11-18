@@ -10,21 +10,36 @@ class Categoria(models.Model):
         return self.nombre
 
 
+
 class Vehiculo(models.Model):
     class Estado(models.TextChoices):
         DISPONIBLE = "DISP", "Disponible"
         ALQUILADO = "ALQ", "Alquilado"
         MANTENIMIENTO = "MANT", "En mantenimiento"
 
-    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, related_name="vehiculos")
+    categoria = models.ForeignKey(
+        Categoria,
+        on_delete=models.PROTECT,
+        related_name="vehiculos"
+    )
     placa = models.CharField(max_length=10, unique=True)
     marca = models.CharField(max_length=40)
     modelo = models.CharField(max_length=40)
     anio = models.PositiveSmallIntegerField()
-    estado = models.CharField(max_length=4, choices=Estado.choices, default=Estado.DISPONIBLE)
+    estado = models.CharField(
+        max_length=4,
+        choices=Estado.choices,
+        default=Estado.DISPONIBLE
+    )
+    imagen = models.ImageField(
+        upload_to="vehiculos/",
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return f"{self.marca} {self.modelo} ({self.placa})"
+
 
 
 class Mantenimiento(models.Model):

@@ -1,4 +1,5 @@
-
+from config.decorators import roles_requeridos
+from config.permissions import ASESOR, CLIENTE, grupos
 
 from rest_framework import viewsets
 
@@ -40,6 +41,7 @@ class AlquilerAccesorioViewSet(viewsets.ModelViewSet):
 # INTERFAZ WEB: LISTAR ALQUILERES
 # ==========================================
 
+@roles_requeridos(ASESOR, CLIENTE)
 def lista_alquileres(request):
 
     alquileres = Alquiler.objects.select_related(
@@ -47,6 +49,17 @@ def lista_alquileres(request):
     ).prefetch_related(
         "accesorios_alquilados__accesorio"
     ).order_by("-id")
+
+    # Los clientes solamente pueden consultar
+    # los alquileres asociados a su propia cuenta.
+    if (
+        not request.user.is_superuser
+        and CLIENTE in grupos(request.user)
+        and ASESOR not in grupos(request.user)
+    ):
+        alquileres = alquileres.filter(
+            cliente__usuario=request.user
+        )
 
     return render(
         request,
@@ -58,7 +71,7 @@ def lista_alquileres(request):
 # ==========================================
 # INTERFAZ WEB: CREAR ALQUILER
 # ==========================================
-
+@roles_requeridos(ASESOR)
 def crear_alquiler(request):
 
     alquiler = Alquiler()
@@ -104,7 +117,7 @@ def crear_alquiler(request):
 # ==========================================
 # INTERFAZ WEB: EDITAR ALQUILER
 # ==========================================
-
+@roles_requeridos(ASESOR)
 def editar_alquiler(request, pk):
 
     alquiler = get_object_or_404(Alquiler, pk=pk)
@@ -153,7 +166,7 @@ def editar_alquiler(request, pk):
 # ==========================================
 # INTERFAZ WEB: ELIMINAR ALQUILER
 # ==========================================
-
+@roles_requeridos(ASESOR)
 def eliminar_alquiler(request, pk):
 
     alquiler = get_object_or_404(Alquiler, pk=pk)

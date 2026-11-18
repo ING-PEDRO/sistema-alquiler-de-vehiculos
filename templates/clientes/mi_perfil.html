@@ -1,0 +1,106 @@
+
+{% extends "base.html" %}
+
+{% block title %}Mi perfil | AutoRent{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="mb-4">
+        <h2>Mi perfil</h2>
+        <p class="text-secondary">
+            Consulta tu información personal registrada en AutoRent.
+        </p>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+
+            <div class="d-flex align-items-center mb-4">
+                <i class="bi bi-person-circle fs-1 me-3"></i>
+
+                <div>
+                    <h4 class="mb-1">
+                        {{ cliente.nombres }} {{ cliente.apellidos }}
+                    </h4>
+
+                    <span class="text-secondary">
+                        Información de mi cuenta
+                    </span>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <label class="text-secondary small">
+                        Tipo de documento
+                    </label>
+                    <p class="fw-semibold">
+                        {{ cliente.tipo_documento }}
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-secondary small">
+                        Número de documento
+                    </label>
+                    <p class="fw-semibold">
+                        {{ cliente.numero_documento }}
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-secondary small">
+                        Nombres
+                    </label>
+                    <p class="fw-semibold">
+                        {{ cliente.nombres }}
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-secondary small">
+                        Apellidos
+                    </label>
+                    <p class="fw-semibold">
+                        {{ cliente.apellidos }}
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-secondary small">
+                        Teléfono
+                    </label>
+                    <p class="fw-semibold">
+                        {{ cliente.telefono }}
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="text-secondary small">
+                        Correo electrónico
+                    </label>
+                    <p class="fw-semibold">
+                        {{ cliente.correo|default:"No registrado" }}
+                    </p>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="text-secondary small">
+                <i class="bi bi-shield-check me-1"></i>
+                Tus datos personales están protegidos por AutoRent.
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

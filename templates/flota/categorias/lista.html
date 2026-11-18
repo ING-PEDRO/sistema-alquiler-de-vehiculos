@@ -1,0 +1,138 @@
+
+{% extends "base.html" %}
+
+{% block title %}Categorías | AutoRent{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">Categorías</h2>
+            <p class="text-secondary mb-0">
+                Administra las categorías y tarifas de los vehículos.
+            </p>
+        </div>
+
+        <a href="{% url 'flota:crear_categoria' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i>
+            Nueva categoría
+        </a>
+
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <form method="GET" class="d-flex gap-2">
+
+                <input
+                    type="text"
+                    name="buscar"
+                    class="form-control"
+                    placeholder="Buscar categoría..."
+                    value="{{ busqueda }}"
+                >
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i>
+                    Buscar
+                </button>
+
+                <a href="{% url 'flota:lista_categorias' %}"
+                   class="btn btn-outline-secondary">
+                    Limpiar
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Tarifa diaria</th>
+                            <th>Vehículos</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for categoria in categorias %}
+
+                        <tr>
+
+                            <td class="fw-semibold">
+                                {{ categoria.nombre }}
+                            </td>
+
+                            <td>
+                                {{ categoria.descripcion|default:"Sin descripción"|truncatechars:60 }}
+                            </td>
+
+                            <td>
+                                ${{ categoria.tarifa_diaria|floatformat:0 }}
+                            </td>
+
+                            <td>
+                                <span class="badge bg-info text-dark">
+                                    {{ categoria.vehiculos.count }}
+                                </span>
+                            </td>
+
+                            <td class="text-center">
+
+                                <a href="{% url 'flota:editar_categoria' categoria.pk %}"
+                                   class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil-square"></i>
+                                    Editar
+                                </a>
+
+                                <a href="{% url 'flota:eliminar_categoria' categoria.pk %}"
+                                   class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i>
+                                    Eliminar
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-secondary">
+                                No hay categorías registradas.
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
