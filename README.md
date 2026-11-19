@@ -137,7 +137,7 @@ Abrir en el navegador: <http://127.0.0.1:8000/admin/>
 
 ## 📄 Diagramas
 
-Los diagramas están en la carpeta [`docs/`](docs/):
+Los diagramas están en la carpeta [`documentos/`](documentos/):
 
 - `casos-de-usus-uml.drawio`: diagrama de casos de uso UML.
 - `diagrama_er.drawio`: diagrama entidad-relación.
